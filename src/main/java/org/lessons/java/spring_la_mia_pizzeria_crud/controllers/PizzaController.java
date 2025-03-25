@@ -96,7 +96,7 @@ public class PizzaController {
 
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable Integer id) {
-        Pizza toRemovePizza = pizzaService.getById(id);
+        Pizza toRemovePizza = pizzaService.getById(id).get();
 
         for (SpecialOffer offer : toRemovePizza.getSpecialOffers()) {
             offerService.delete(offer);
@@ -111,7 +111,7 @@ public class PizzaController {
     public String newoffer(@PathVariable Integer id, Model model) {
         SpecialOffer specialOffer = new SpecialOffer();
 
-        specialOffer.setPizza(pizzaService.getById(id));
+        specialOffer.setPizza(pizzaService.getById(id).get());
 
         model.addAttribute("specialOffer", specialOffer);
         model.addAttribute("edit", false);

@@ -32,14 +32,8 @@ public class PizzaService {
         return pizzaList;
     }
 
-    public Pizza getById(Integer id) {
-        Optional<Pizza> pizzaAttempt = pizzaRepository.findById(id);
-
-        if (pizzaAttempt.isEmpty()) {
-            // TODO
-        }
-
-        return pizzaAttempt.get();
+    public Optional<Pizza> getById(Integer id) {
+        return pizzaRepository.findById(id);
     }
 
     public Pizza create(Pizza newPizza) {
@@ -58,7 +52,7 @@ public class PizzaService {
     }
 
     public void deleteById(Integer id) {
-        Pizza toDeletePizza = getById(id);
+        Pizza toDeletePizza = getById(id).get();
 
         for (SpecialOffer offer : toDeletePizza.getSpecialOffers()) {
             offersService.delete(offer);
