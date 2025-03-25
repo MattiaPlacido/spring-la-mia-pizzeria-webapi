@@ -1,7 +1,7 @@
 package org.lessons.java.spring_la_mia_pizzeria_crud.controllers;
 
 import org.lessons.java.spring_la_mia_pizzeria_crud.models.SpecialOffer;
-import org.lessons.java.spring_la_mia_pizzeria_crud.repos.SpecialOfferRepository;
+import org.lessons.java.spring_la_mia_pizzeria_crud.services.SpecialOfferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class SpecialOfferController {
 
     @Autowired
-    private SpecialOfferRepository repo;
+    private SpecialOfferService offerService;
 
     @PostMapping("/create")
     public String store(@Valid @ModelAttribute("specialOffer") SpecialOffer newOffer, BindingResult bindingResult) {
@@ -29,14 +29,14 @@ public class SpecialOfferController {
             return "specialOffers/create-or-edit";
         }
 
-        repo.save(newOffer);
+        offerService.create(newOffer);
 
         return "redirect:/pizzas/" + newOffer.getPizza().getId();
     }
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
-        model.addAttribute("specialOffer", repo.findById(id).get());
+        model.addAttribute("specialOffer", offerService.getById(id));
         model.addAttribute("edit", true);
 
         return "specialOffers/create-or-edit";
@@ -48,7 +48,7 @@ public class SpecialOfferController {
             return "specialOffers/create-or-edit";
         }
 
-        repo.save(updatedOffer);
+        offerService.update(updatedOffer);
 
         return "redirect:/pizzas/" + updatedOffer.getPizza().getId();
     }
@@ -56,9 +56,9 @@ public class SpecialOfferController {
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable Integer id) {
 
-        Integer pizzaId = repo.findById(id).get().getPizza().getId();
+        Integer pizzaId = offerService.getById(id).getPizza().getId();
 
-        repo.deleteById(id);
+        offerService.deleteById(id);
 
         return "redirect:/pizzas/" + pizzaId;
     }
