@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <link th:replace="~{ fragments :: bootstrap}">
+    <title>Create offer</title>
+</head>
+
+<body>
+
+    <link th:replace="~{ fragments :: navbar}">
+
+
+    <div class="container mt-3 p-2">
+
+        <h1 class="text-center">Add a new ingredient!</h1>
+
+        <form id="new-ingredient-form"
+            th:action="${edit} ? @{/ingredients/edit/{id}(id = ${ingredient.id})} : @{/ingredients/create}"
+            method="post" th:object="${ingredient}">
+
+            <div class="mb-3">
+                <label class="form-label" for="name">Name : </label>
+                <input class="form-control" type="text" id="name" th:field="*{name}" th:errorClass="is-invalid">
+                <div th:if="${#fields.hasErrors('name')}" class="invalid-feedback">
+                    <ul>
+                        <li th:each="err : ${#fields.errors('name')}" th:text="${err}"></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="description">Description : </label>
+                <textarea class="form-control" id="description" th:field="*{description}"
+                    th:errorClass="is-invalid"></textarea>
+                <div th:if="${#fields.hasErrors('description')}" class="invalid-feedback">
+                    <ul>
+                        <li th:each="err : ${#fields.errors('description')}" th:text="${err}"></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mb-3 d-flex justify-content-between">
+                <input type="submit" class="btn btn-dark" value="Save ingredient">
+                <input type="reset" class="btn btn-danger" value="Reset fields">
+            </div>
+        </form>
+    </div>
+</body>
+<link th:replace="~{ fragments :: scripts}">
+
+</html>

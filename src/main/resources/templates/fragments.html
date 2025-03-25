@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <th:block th:fragment="bootstrap">
+        <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}" />
+    </th:block>
+</head>
+
+<body>
+
+    <th:block th:fragment="navbar">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto gap-5 fs-4">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/pizzas}">View Pizzas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/pizzas/create}">Add a Pizza</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/ingredients}">View Ingredients</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </th:block>
+
+    <th:block th:fragment="pizzasButton">
+        <a th:href="@{/pizzas}" class="btn btn-light border border-black">
+            Pizzas
+        </a>
+    </th:block>
+
+</body>
+<th:block th:fragment="scripts">
+    <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+</th:block>
+
+</html>

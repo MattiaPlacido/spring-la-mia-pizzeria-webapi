@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <link th:replace="~{ fragments :: bootstrap}">
+    <title>Create offer</title>
+</head>
+
+<body>
+
+    <link th:replace="~{ fragments :: navbar}">
+
+
+    <div class="container mt-3 p-2">
+
+        <h1 class="text-center">Add a new special offer!</h1>
+
+        <form id="specialoffer-form"
+            th:action="${edit} ? @{/specialOffers/edit/{id}(id = ${specialOffer.id})} : @{/specialOffers/create}"
+            method="post" th:object="${specialOffer}">
+
+            <input type="hidden" th:field="*{pizza}" id="linked-pizza">
+            <div class="mb-3">
+                <label class="form-label" for="title">Title : </label>
+                <input class="form-control" type="text" id="title" th:field="*{title}" th:errorClass="is-invalid">
+                <div th:if="${#fields.hasErrors('title')}" class="invalid-feedback">
+                    <ul>
+                        <li th:each="err : ${#fields.errors('title')}" th:text="${err}"></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="description">Description : </label>
+                <textarea class="form-control" id="description" th:field="*{description}"
+                    th:errorClass="is-invalid"></textarea>
+                <div th:if="${#fields.hasErrors('description')}" class="invalid-feedback">
+                    <ul>
+                        <li th:each="err : ${#fields.errors('description')}" th:text="${err}"></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="starting-date">Starting Date : </label>
+                <input class="form-control" type="date" id="starting-date" th:field="*{startingDate}"
+                    th:errorClass="is-invalid">
+                <div th:if="${#fields.hasErrors('startingDate')}" class="invalid-feedback">
+                    <ul>
+                        <li th:each="err : ${#fields.errors('startingDate')}" th:text="${err}"></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="ending-date">Ending Date : </label>
+                <input class="form-control" type="date" id="ending-date" th:field="*{endingDate}"
+                    th:errorClass="is-invalid">
+                <div th:if="${#fields.hasErrors('endingDate')}" class="invalid-feedback">
+                    <ul>
+                        <li th:each="err : ${#fields.errors('endingDate')}" th:text="${err}"></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mb-3 d-flex justify-content-between">
+                <input type="submit" class="btn btn-dark" value="Save offer">
+                <input type="reset" class="btn btn-danger" value="Reset fields">
+            </div>
+        </form>
+    </div>
+</body>
+<link th:replace="~{ fragments :: scripts}">
+
+</html>
