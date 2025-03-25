@@ -52,7 +52,7 @@ public class PizzaController {
     public String show(
             @PathVariable("id") Integer id, Model model) {
 
-        model.addAttribute("pizza", pizzaService.getById(id));
+        model.addAttribute("pizza", pizzaService.getById(id).get());
         return "pizzas/show";
     }
 
@@ -77,7 +77,7 @@ public class PizzaController {
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
-        model.addAttribute("pizza", pizzaService.getById(id));
+        model.addAttribute("pizza", pizzaService.getById(id).get());
         model.addAttribute("ingredients", ingredientService.getAll());
         return "pizzas/edit";
     }
