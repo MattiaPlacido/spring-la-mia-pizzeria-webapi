@@ -56,7 +56,10 @@ public class PizzaRestController {
 
     @PostMapping
     public ResponseEntity<Pizza> store(@Valid @RequestBody Pizza newPizza) {
-        return new ResponseEntity<Pizza>(pizzaService.create(newPizza), HttpStatus.OK);
+        if (newPizza.getId() != null) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        return new ResponseEntity<>(pizzaService.create(newPizza), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
